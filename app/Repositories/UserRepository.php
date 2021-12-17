@@ -66,34 +66,6 @@ class UserRepository implements UserRepositoryInterface
 
     }
 
-    // this function will be called to save the transaction and its status. If payment was succesful, another
-    // function will update the transaction and insert add the new amount to the user wallet
-
-    public function rechargeWallet($validated) {
-
-        $user = Auth::user();
-
-        $wallet_transaction = WalletTransaction::create([
-            'sender_id' => $user->id,
-            'wallet_id' => $user->wallet->id,
-            'reference' => $this->reference(),
-            'type' => 'Debit',
-            'amount' => $validated['amount']
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Funding wallet completed successfully',
-            'data' => $wallet_transaction->amount
-        ], 200);
-    }
-
-    //this function has not been completed yet
-    public function transferBalance($userId, array $recipientDetails)
-    {
-        return Wallet::whereId($userId)->update($recipientDetails);
-    }
-
     //this function will generate a uuid to for a new user, it also checks if the uuid already exists
     public function generateUUID()
     {

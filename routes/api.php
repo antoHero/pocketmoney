@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\WalletController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,7 +17,12 @@ use App\Http\Controllers\API\AuthController;
 
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('fund-wallet', [AuthController::class, 'fundWallet']);
+
+    Route::prefix('wallet')->group(function() {
+        Route::post('fund', [WalletController::class, 'fundWallet']);
+        Route::get('balance', [WalletController::class, 'walletBalance']);
+    });
+
     Route::post('logout', [AuthController::class, 'logout']);
 });
 

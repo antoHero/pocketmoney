@@ -23,13 +23,6 @@ class AuthController extends Controller
         return $this->userRepository->createNewUser($validated);
     }
 
-    public function fundWallet(FundWalletRequest $request)
-    {
-        $validated = $request->validated();
-
-        return $this->userRepository->rechargeWallet($validated);
-    }
-
     public function login(LoginUserRequest $request)
     {
         $validated = $request->validated();
